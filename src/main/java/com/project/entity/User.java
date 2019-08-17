@@ -74,4 +74,9 @@ public class User implements Serializable {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
+
+    @Override
+    public String toString() {
+        return "User" + id + name + pass + cash + books;
+    }
 }

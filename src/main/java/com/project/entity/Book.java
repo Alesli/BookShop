@@ -40,7 +40,6 @@ public class Book implements Serializable {
 
     // ---
 
-
     public Long getId() {
         return id;
     }
@@ -87,5 +86,10 @@ public class Book implements Serializable {
 
     public void setUsers(List<User> users) {
         this.users = users;
+    }
+
+    @Override
+    public String toString() {
+        return "Book" + id + name + author  + description + cost + users ;
     }
 }

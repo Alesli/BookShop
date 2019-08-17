@@ -60,4 +60,9 @@ public class Shop implements Serializable {
     public void setBooks(List<Book> books) {
         this.books = books;
     }
+
+    @Override
+    public String toString() {
+        return "Shop" + id + name + cash + books;
+    }
 }
