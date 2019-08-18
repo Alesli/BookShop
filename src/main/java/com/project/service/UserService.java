@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface UserService {
 
-    User findOne(Long id);
+    User findOne(Integer id);
 
     User findOneByPass(String pass);
 

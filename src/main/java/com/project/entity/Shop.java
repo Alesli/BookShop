@@ -12,7 +12,7 @@ public class Shop implements Serializable {
     @Column(name = "id")
     @Access(value = AccessType.PROPERTY)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Basic
     @Column(name = "name")
@@ -23,17 +23,17 @@ public class Shop implements Serializable {
     private Double cash;
 
     @ManyToMany(cascade = CascadeType.MERGE)
-    @JoinTable(name = "user_book",
-            joinColumns = @JoinColumn(name = "user_id"),
+    @JoinTable(name = "shop_book",
+            joinColumns = @JoinColumn(name = "shop_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"),
-            foreignKey = @ForeignKey(name = "fk_user_to_book"))
+            foreignKey = @ForeignKey(name = "fk_shop_to_book"))
     private List<Book> books;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -61,8 +61,8 @@ public class Shop implements Serializable {
         this.books = books;
     }
 
-    @Override
-    public String toString() {
-        return "Shop" + id + name + cash + books;
-    }
+//    @Override
+//    public String toString() {
+//        return "Shop" + id + name + cash + books;
+//    }
 }

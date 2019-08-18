@@ -13,25 +13,25 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository repository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository repository) {
-        this.repository = repository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
-    public User findOne(Long id) {
-        return repository.findUserById(id);
+    public User findOne(Integer id) {
+        return userRepository.getOne(id);
     }
 
     @Override
     public User findOneByPass(String pass) {
-        return repository.findUserByPass(pass);
+        return userRepository.findUserByPass(pass);
     }
 
     @Override
     public List<User> findAll() {
-        return repository.findAll();
+        return userRepository.findAll();
     }
 }

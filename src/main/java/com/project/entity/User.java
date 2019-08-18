@@ -5,14 +5,14 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", schema = "public")
 public class User implements Serializable {
 
     @Id
     @Column(name = "id")
     @Access(value = AccessType.PROPERTY)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Basic
     @Column(name = "name")
@@ -35,11 +35,11 @@ public class User implements Serializable {
 
     // ---
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -75,8 +75,12 @@ public class User implements Serializable {
         this.books = books;
     }
 
-    @Override
-    public String toString() {
-        return "User" + id + name + pass + cash + books;
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder b = new StringBuilder();
+//        for (Book book : books) {
+//            b.append("\t").append(book).append("\n");
+//        }
+//        return "User" + id + name + pass + cash + b.toString();
+//    }
 }

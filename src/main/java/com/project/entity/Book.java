@@ -13,7 +13,7 @@ public class Book implements Serializable {
     @Column(name = "id")
     @Access(value = AccessType.PROPERTY)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Basic
     @Column(name = "name")
@@ -40,11 +40,11 @@ public class Book implements Serializable {
 
     // ---
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -88,8 +88,12 @@ public class Book implements Serializable {
         this.users = users;
     }
 
-    @Override
-    public String toString() {
-        return "Book" + id + name + author  + description + cost + users ;
-    }
+//    @Override
+//    public String toString() {
+//        StringBuilder u = new StringBuilder();
+//        for (User user : users) {
+//            u.append("\t").append(user).append("\n");
+//        }
+//        return "Book" + id + name + author  + description + cost + u.toString() ;
+//    }
 }
