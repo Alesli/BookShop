@@ -1,5 +1,6 @@
 package com.project;
 
+import com.project.facade.UserFacade;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
@@ -15,7 +16,7 @@ import static java.lang.System.exit;
 public class App { //implements CommandLineRunner {
 
     @Autowired
-    private UserService userService;
+    private UserFacade userFacade;
 
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
@@ -26,7 +27,7 @@ public class App { //implements CommandLineRunner {
 //        app.run(args);
     }
 
-//    @Override
+    //    @Override
 //    public void run(String... args) throws Exception {
 //        if (args.length > 0) {
 //            System.out.println();
@@ -35,9 +36,9 @@ public class App { //implements CommandLineRunner {
 //        }
 //        exit(0); // завершаем программу
 //    }
-//@EventListener(ApplicationReadyEvent.class)
-//private void testJpaMethods(){
-//    userService.findAll().forEach(it-> System.out.println(it));
-//
-//}
+    @EventListener(ApplicationReadyEvent.class)
+    public void testJpaMethods() {
+        userFacade.findAll().forEach(System.out::println);
+
+    }
 }
