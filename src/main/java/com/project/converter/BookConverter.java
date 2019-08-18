@@ -1,9 +1,8 @@
 package com.project.converter;
 
-import com.project.dto.BookUserDto;
-import com.project.dto.BookDto;
-import com.project.dto.UserDto;
+import com.project.dto.*;
 import com.project.entity.Book;
+import com.project.entity.Shop;
 import com.project.entity.User;
 
 import java.util.ArrayList;
@@ -22,7 +21,7 @@ public class BookConverter {
         return bookDto;
     }
 
-    public static BookUserDto getBookAuthorDto(Book book) {
+    public static BookUserDto getBookUserDto(Book book) {
 
         BookUserDto bookUserDto = new BookUserDto();
         bookUserDto.setId(book.getId());
@@ -39,5 +38,23 @@ public class BookConverter {
         }
         bookUserDto.setUserDtoList(userDtoList);
         return bookUserDto;
+    }
+
+    public static BookShopDto getBookShopDto(Book book) {
+
+        BookShopDto bookShopDto = new BookShopDto();
+        bookShopDto.setId(book.getId());
+        bookShopDto.setName(book.getName());
+        bookShopDto.setAuthor(book.getAuthor());
+        bookShopDto.setDescription(book.getDescription());
+        bookShopDto.setCost(book.getCost());
+
+        List<Shop> shopList = book.getShops();
+        List<ShopDto> shopDtoList = new ArrayList<>(shopList.size());
+        for (Shop shop : shopList) {
+            shopDtoList.add(ShopConverter.getShopDto(shop));
+        }
+        bookShopDto.setShopDtoList(shopDtoList);
+        return bookShopDto;
     }
 }

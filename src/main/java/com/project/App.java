@@ -1,22 +1,22 @@
 package com.project;
 
+import com.project.dto.BookShopDto;
+import com.project.facade.ShopFacade;
 import com.project.facade.UserFacade;
-import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
-
-import static java.lang.System.exit;
 
 @SpringBootApplication
 public class App { //implements CommandLineRunner {
 
     @Autowired
     private UserFacade userFacade;
+
+    @Autowired
+    private ShopFacade shopFacade;
 
     public static void main(String[] args) {
         SpringApplication.run(App.class, args);
@@ -34,11 +34,16 @@ public class App { //implements CommandLineRunner {
 //        } else {
 //            System.out.println();
 //        }
-//        exit(0); // завершаем программу
+//        exit(0);
 //    }
     @EventListener(ApplicationReadyEvent.class)
     public void testJpaMethods() {
         userFacade.findAll().forEach(System.out::println);
 
+//        UserDto user = userFacade.findOneByPass("pass123");
+//        System.out.println(user);
+
+       BookShopDto bookShopDto = shopFacade.findBooksByIdFromShop(6);
+        System.out.println(bookShopDto);
     }
 }

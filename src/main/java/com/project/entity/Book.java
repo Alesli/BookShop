@@ -38,6 +38,13 @@ public class Book implements Serializable {
             foreignKey = @ForeignKey(name = "fk_book_to_user"))
     private List<User> users;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "shop_book",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "shop_id"),
+            foreignKey = @ForeignKey(name = "fk_book_to_shop"))
+    private List<Shop> shops;
+
     // ---
 
     public Integer getId() {
@@ -88,7 +95,15 @@ public class Book implements Serializable {
         this.users = users;
     }
 
-//    @Override
+    public List<Shop> getShops() {
+        return shops;
+    }
+
+    public void setShops(List<Shop> shops) {
+        this.shops = shops;
+    }
+
+    //    @Override
 //    public String toString() {
 //        StringBuilder u = new StringBuilder();
 //        for (User user : users) {

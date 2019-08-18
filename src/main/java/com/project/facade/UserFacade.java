@@ -1,7 +1,6 @@
 package com.project.facade;
 
 import com.project.dto.UserDto;
-import com.project.entity.User;
 
 import java.util.List;
 

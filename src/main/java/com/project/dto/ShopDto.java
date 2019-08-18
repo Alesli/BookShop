@@ -13,7 +13,7 @@ public class ShopDto {
 
     private Integer id;
     private String name;
-    private String cash;
+    private Double cash;
 
     @Override
     public String toString() {

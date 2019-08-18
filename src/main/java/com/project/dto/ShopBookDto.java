@@ -15,7 +15,7 @@ public class ShopBookDto {
 
     private Integer id;
     private String name;
-    private String cash;
+    private Double cash;
     private List<BookDto> bookDtoList;
 
     @Override
