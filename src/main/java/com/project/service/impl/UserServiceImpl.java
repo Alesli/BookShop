@@ -1,6 +1,7 @@
 package com.project.service.impl;
 
 import com.project.entity.User;
+import com.project.repository.BookRepository;
 import com.project.repository.UserRepository;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +14,11 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    private final UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private BookRepository bookRepository;
 
     @Override
     public User findOne(Integer id) {
@@ -31,7 +31,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User findUserByIdAndName(Integer id, String name) {
+        return userRepository.findUserByIdAndName(id, name);
+    }
+
+    @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
+
 }

@@ -21,10 +21,20 @@ public class UserConverter {
         return userDto;
     }
 
+    public static User getUser(UserBookDto userBookDto) {
+
+        User user = new User();
+        user.setId(userBookDto.getId());
+        user.setName(userBookDto.getName());
+        user.setPass(userBookDto.getPass());
+        user.setCash(userBookDto.getCash());
+        return user;
+    }
+
     public static UserBookDto getUserBookDto(User user){
 
         UserBookDto userBookDto = new UserBookDto();
-        userBookDto.setIg(user.getId());
+        userBookDto.setId(user.getId());
         userBookDto.setName(user.getName());
         userBookDto.setPass(user.getPass());
         userBookDto.setCash(user.getCash());

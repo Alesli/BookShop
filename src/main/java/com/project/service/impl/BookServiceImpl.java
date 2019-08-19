@@ -19,4 +19,5 @@ public class BookServiceImpl implements BookService {
     public Book findBooksByIdFromShop(Integer bookId) {
         return bookRepository.findBooksByIdFromShop(bookId);
     }
+
 }

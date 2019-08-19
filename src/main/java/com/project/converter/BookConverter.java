@@ -21,6 +21,17 @@ public class BookConverter {
         return bookDto;
     }
 
+    public static Book getBook(BookDto bookDto) {
+
+        Book book = new Book();
+        book.setId(bookDto.getId());
+        book.setName(bookDto.getName());
+        book.setAuthor(bookDto.getAuthor());
+        book.setDescription(bookDto.getDescription());
+        book.setCost(bookDto.getCost());
+        return book;
+    }
+
     public static BookUserDto getBookUserDto(Book book) {
 
         BookUserDto bookUserDto = new BookUserDto();

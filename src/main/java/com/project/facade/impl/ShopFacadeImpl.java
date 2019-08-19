@@ -33,4 +33,6 @@ public class ShopFacadeImpl implements ShopFacade {
 //        }
         return BookConverter.getBookShopDto(book);
     }
+
+
 }

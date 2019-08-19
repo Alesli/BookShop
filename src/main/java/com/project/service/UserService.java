@@ -10,5 +10,8 @@ public interface UserService {
 
     User findOneByPass(String pass);
 
+    User findUserByIdAndName(Integer id, String name);
+
     List<User> findAll();
+
 }

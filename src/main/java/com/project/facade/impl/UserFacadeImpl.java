@@ -1,6 +1,7 @@
 package com.project.facade.impl;
 
 import com.project.converter.UserConverter;
+import com.project.dto.UserBookDto;
 import com.project.dto.UserDto;
 import com.project.entity.User;
 import com.project.facade.UserFacade;
@@ -30,6 +31,12 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
+    public UserDto findUserByIdAndName(Integer id, String name) {
+        User user = userService.findUserByIdAndName(id, name);
+        return UserConverter.getUserDto(user);
+    }
+
+    @Override
     public List<UserDto> findAll() {
         List<User> userList = userService.findAll();
         List<UserDto> userDtoList = new ArrayList<>(userList.size());
@@ -37,5 +44,17 @@ public class UserFacadeImpl implements UserFacade {
             userDtoList.add(UserConverter.getUserDto(user));
         }
         return userDtoList;
+    }
+
+    @Override
+    public UserBookDto addBookToUser(UserBookDto userBookDto) {
+        User user = UserConverter.getUser(userBookDto);
+
+        return null;
+    }
+
+    @Override
+    public void deleteBookToUser(Integer userId, Integer bookId) {
+
     }
 }

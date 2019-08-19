@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class UserBookDto {
 
-    private Integer ig;
+    private Integer id;
     private String name;
     private String pass;
     private Double cash;
@@ -26,7 +26,7 @@ public class UserBookDto {
         for (BookDto book : bookDtoList) {
             b.append("\t").append(book).append("\n");
         }
-        return "UserBook " + ig +
+        return "UserBook " + id +
                 ", name= " + name +
                 ", pass= " + pass +
                 ", cash= " + cash +
