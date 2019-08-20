@@ -21,23 +21,29 @@ public class UserServiceImpl implements UserService {
     private BookRepository bookRepository;
 
     @Override
-    public User findOne(Integer id) {
+    public User findOneById(Integer id) {
         return userRepository.getOne(id);
     }
 
     @Override
-    public User findOneByPass(String pass) {
-        return userRepository.findUserByPass(pass);
+    public User findOneByName(String name) {
+        return userRepository.findOneByName(name);
     }
 
     @Override
-    public User findUserByIdAndName(Integer id, String name) {
-        return userRepository.findUserByIdAndName(id, name);
+    public boolean isCashEnough(Integer id, Double cash) {
+        return false;
     }
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public User updateCash(Integer id, Double cash) {
+        User user = userRepository.getOne(id);
+        return null;
+    }
+
+    @Override
+    public User save(User user) {
+        return userRepository.save(user);
     }
 
 }

@@ -1,11 +1,18 @@
 package com.project.facade.impl;
 
 import com.project.converter.BookConverter;
+import com.project.converter.ShopConverter;
+import com.project.converter.UserConverter;
 import com.project.dto.BookShopDto;
+import com.project.dto.ShopDto;
+import com.project.dto.UserBookDto;
+import com.project.dto.UserDto;
 import com.project.entity.Book;
+import com.project.entity.Shop;
 import com.project.facade.ShopFacade;
 import com.project.service.BookService;
 import com.project.service.ShopService;
+import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,18 +28,47 @@ public class ShopFacadeImpl implements ShopFacade {
     @Autowired
     private BookService bookService;
 
+    @Autowired
+    private UserService userService;
+
     @Override
-    public BookShopDto findBooksByIdFromShop(Integer bookId) {
-
-        Book book = bookService.findBooksByIdFromShop(bookId);
-
-//        List<Book> bookList = bookService.findBooksByIdFromShop(bookId);
-//        List<BookShopDto> bookShopDtoList = new ArrayList<>(bookList.size());
-//        for (Book book : bookList) {
-//            bookShopDtoList.add(BookConverter.getBookShopDto(book));
-//        }
-        return BookConverter.getBookShopDto(book);
+    public UserDto findOneUserByName(String userName) {
+        return UserConverter.getUserDto(
+                userService.findOneByName(userName));
     }
 
+    @Override
+    public ShopDto findOneShopById(Integer shopId) {
+        return ShopConverter.getShopDto(shopService.findOneById(shopId));
+    }
 
+    @Override
+    public List<ShopDto> findAllShops() {
+        List<Shop> shopList = shopService.findAll();
+        List<ShopDto> shopDtoList = new ArrayList<>(shopList.size());
+        for (Shop shops : shopList) {
+            shopDtoList.add(ShopConverter.getShopDto(shops));
+        }
+        return shopDtoList;
+    }
+
+    @Override
+    public long countShops() {
+        return shopService.count();
+    }
+
+    @Override
+    public List<BookShopDto> findAllShopsBooks() {
+        return null;
+    }
+
+    @Override
+    public List<UserBookDto> findAllUsersBooks() {
+        return null;
+    }
+
+    @Override
+    public Book saleBook(Integer shopId, Integer userId, Integer bookId) {
+        return null;
+    }
 }

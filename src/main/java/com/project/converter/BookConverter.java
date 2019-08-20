@@ -18,6 +18,7 @@ public class BookConverter {
         bookDto.setAuthor(book.getAuthor());
         bookDto.setDescription(book.getDescription());
         bookDto.setCost(book.getCost());
+        bookDto.setCount(book.getCount());
         return bookDto;
     }
 
@@ -29,6 +30,7 @@ public class BookConverter {
         book.setAuthor(bookDto.getAuthor());
         book.setDescription(bookDto.getDescription());
         book.setCost(bookDto.getCost());
+        book.setCount(bookDto.getCount());
         return book;
     }
 
@@ -40,7 +42,7 @@ public class BookConverter {
         bookUserDto.setAuthor(book.getAuthor());
         bookUserDto.setDescription(book.getDescription());
         bookUserDto.setCost(book.getCost());
-
+        bookUserDto.setCount(book.getCount());
 
         List<User> userList = book.getUsers();
         List<UserDto> userDtoList = new ArrayList<>(userList.size());
@@ -59,6 +61,7 @@ public class BookConverter {
         bookShopDto.setAuthor(book.getAuthor());
         bookShopDto.setDescription(book.getDescription());
         bookShopDto.setCost(book.getCost());
+        bookShopDto.setCount(book.getCount());
 
         List<Shop> shopList = book.getShops();
         List<ShopDto> shopDtoList = new ArrayList<>(shopList.size());

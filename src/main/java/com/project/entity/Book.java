@@ -31,6 +31,10 @@ public class Book implements Serializable {
     @Column(name = "cost")
     private Double cost;
 
+    @Basic
+    @Column(name = "count")
+    private Integer count;
+
     @ManyToMany(cascade = CascadeType.MERGE)
     @JoinTable(name = "user_book",
             joinColumns = @JoinColumn(name = "book_id"),
@@ -101,6 +105,14 @@ public class Book implements Serializable {
 
     public void setShops(List<Shop> shops) {
         this.shops = shops;
+    }
+
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
     }
 
     //    @Override

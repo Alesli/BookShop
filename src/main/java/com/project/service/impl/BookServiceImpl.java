@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -16,8 +17,22 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
 
     @Override
-    public Book findBooksByIdFromShop(Integer bookId) {
-        return bookRepository.findBooksByIdFromShop(bookId);
+    public Book findOneById(Integer id) {
+        return bookRepository.getOne(id);
     }
 
+    @Override
+    public List<Book> findAll() {
+        return bookRepository.findAll();
+    }
+
+    @Override
+    public Book saleFromShop(Integer bookId, Integer shopId) {
+        return null;
+    }
+
+    @Override
+    public Book addToUser(Integer bookId, Integer userId) {
+        return null;
+    }
 }

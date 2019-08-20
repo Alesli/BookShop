@@ -19,6 +19,7 @@ public class BookUserDto {
     private String author;
     private String description;
     private Double cost;
+    private Integer count;
     private List<UserDto> userDtoList;
 
     @Override
@@ -33,6 +34,7 @@ public class BookUserDto {
                 ", author= " + author +
                 ", description= " + description +
                 ", cost= " + cost +
+                ", count= " + count +
                 ", users= " + u.toString();
     }
 }

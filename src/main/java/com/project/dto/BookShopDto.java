@@ -18,6 +18,7 @@ public class BookShopDto {
     private String author;
     private String description;
     private Double cost;
+    private Integer count;
     private List<ShopDto> shopDtoList;
 
     @Override
@@ -32,6 +33,7 @@ public class BookShopDto {
                 ", author= " + author +
                 ", description= " + description +
                 ", cost= " + cost +
+                ", count= " + count +
                 ", shops= " + s.toString();
     }
 }

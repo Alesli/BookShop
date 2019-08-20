@@ -16,6 +16,7 @@ public class BookDto {
     private String author;
     private String description;
     private Double cost;
+    private Integer count;
 
     @Override
     public String toString() {
@@ -23,7 +24,8 @@ public class BookDto {
                 ", name= " + name +
                 ", author= " + author +
                 ", description= " + description +
-                ", cost= " + cost;
+                ", cost= " + cost +
+                ", count= " + count;
     }
 }
 
