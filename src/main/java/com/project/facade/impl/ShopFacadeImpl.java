@@ -3,10 +3,7 @@ package com.project.facade.impl;
 import com.project.converter.BookConverter;
 import com.project.converter.ShopConverter;
 import com.project.converter.UserConverter;
-import com.project.dto.BookShopDto;
-import com.project.dto.ShopDto;
-import com.project.dto.UserBookDto;
-import com.project.dto.UserDto;
+import com.project.dto.*;
 import com.project.entity.Book;
 import com.project.entity.Shop;
 import com.project.facade.ShopFacade;
@@ -58,7 +55,7 @@ public class ShopFacadeImpl implements ShopFacade {
     }
 
     @Override
-    public List<BookShopDto> findAllShopsBooks() {
+    public List<ShopBookDto> findAllShopsBooks() {
         return null;
     }
 

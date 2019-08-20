@@ -17,7 +17,7 @@ public interface ShopFacade {
 
     long countShops();
 
-    List<BookShopDto> findAllShopsBooks();
+    List<ShopBookDto> findAllShopsBooks();
 
     List<UserBookDto> findAllUsersBooks();
 
