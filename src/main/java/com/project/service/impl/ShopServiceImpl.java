@@ -22,7 +22,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop findOneById(Integer id) {
+    public Shop findOneById(Long id) {
         return shopRepository.getOne(id);
     }
 
@@ -37,7 +37,9 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public Shop updateCash(Integer id, Double cash) {
-        return null;
+    public Shop updateCash(Long id, Double cash) {
+        Shop shop = shopRepository.getOne(id);
+        shop.setCash(cash);
+        return shopRepository.save(shop);
     }
 }

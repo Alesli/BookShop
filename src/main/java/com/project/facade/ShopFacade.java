@@ -11,7 +11,7 @@ public interface ShopFacade {
 
     UserDto findOneUserByName(String userName);
 
-    ShopDto findOneShopById(Integer shopId);
+    ShopDto findOneShopById(Long shopId);
 
     List<ShopDto> findAllShops();
 
@@ -21,6 +21,6 @@ public interface ShopFacade {
 
     List<UserBookDto> findAllUsersBooks();
 
-    Book saleBook(Integer shopId, Integer userId, Integer bookId);
+    Book saleBook(Long shopId, Long userId, Long bookId);
 
 }

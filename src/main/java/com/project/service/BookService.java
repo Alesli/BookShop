@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface BookService {
 
-    Book findOneById(Integer id);
+    Book findOneById(Long id);
 
     List<Book> findAll();
 
-    Book saleFromShop(Integer bookId, Integer shopId);
+    Book saleFromShop(Long bookId, Long shopId);
 
-    Book addToUser(Integer bookId, Integer userId);
+    Book addToUser(Long bookId, Long userId);
 
 }

@@ -17,7 +17,7 @@ public class BookServiceImpl implements BookService {
     private BookRepository bookRepository;
 
     @Override
-    public Book findOneById(Integer id) {
+    public Book findOneById(Long  id) {
         return bookRepository.getOne(id);
     }
 
@@ -27,12 +27,15 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book saleFromShop(Integer bookId, Integer shopId) {
+    public Book saleFromShop(Long bookId, Long shopId) {
+        Book book= bookRepository.getOne(bookId);
+
         return null;
     }
 
     @Override
-    public Book addToUser(Integer bookId, Integer userId) {
+    public Book addToUser(Long bookId, Long userId) {
+        Book book =bookRepository.getOne(bookId);
         return null;
     }
 }

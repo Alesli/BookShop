@@ -1,5 +1,6 @@
 package com.project.menu;
 
+import com.project.dto.ShopDto;
 import com.project.entity.Shop;
 
 import java.io.BufferedReader;
@@ -31,12 +32,12 @@ public class MainMenuParts {
         return null;
     }
 
-    Long getShop(List<Shop> shopList) {
+    Long getShop(List<ShopDto> shopDtoList) {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.println("Please, choose shop:");
-            for (Shop shop : shopList) {
-                System.out.println(shop.getId() + " - " + shop.getName());
+            for (ShopDto shopDto : shopDtoList) {
+                System.out.println(shopDto.getId() + " - " + shopDto.getName());
             }
             System.out.print("Please, enter SHOP ID: ");
             try {

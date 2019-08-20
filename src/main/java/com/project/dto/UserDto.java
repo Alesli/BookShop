@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 public class UserDto {
 
-    private Integer ig;
+    private Long ig;
     private String name;
     private String pass;
     private Double cash;

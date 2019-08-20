@@ -6,6 +6,7 @@ import com.project.converter.UserConverter;
 import com.project.dto.*;
 import com.project.entity.Book;
 import com.project.entity.Shop;
+import com.project.entity.User;
 import com.project.facade.ShopFacade;
 import com.project.service.BookService;
 import com.project.service.ShopService;
@@ -35,7 +36,7 @@ public class ShopFacadeImpl implements ShopFacade {
     }
 
     @Override
-    public ShopDto findOneShopById(Integer shopId) {
+    public ShopDto findOneShopById(Long shopId) {
         return ShopConverter.getShopDto(shopService.findOneById(shopId));
     }
 
@@ -56,16 +57,26 @@ public class ShopFacadeImpl implements ShopFacade {
 
     @Override
     public List<ShopBookDto> findAllShopsBooks() {
-        return null;
+        List<Shop> shopList = shopService.findAll();
+        List<ShopBookDto> shopBookDtoList = new ArrayList<>(shopList.size());
+        for (Shop shops : shopList) {
+            shopBookDtoList.add(ShopConverter.getShopBookDto(shops));
+        }
+        return shopBookDtoList;
     }
 
     @Override
     public List<UserBookDto> findAllUsersBooks() {
-        return null;
+        List<User> userList = userService.findAll();
+        List<UserBookDto> userBookDtoList = new ArrayList<>(userList.size());
+        for (User users : userList) {
+            userBookDtoList.add(UserConverter.getUserBookDto(users));
+        }
+        return userBookDtoList;
     }
 
     @Override
-    public Book saleBook(Integer shopId, Integer userId, Integer bookId) {
+    public Book saleBook(Long shopId, Long userId, Long bookId) {
         return null;
     }
 }

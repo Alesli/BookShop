@@ -1,6 +1,5 @@
 package com.project.dto;
 
-import com.project.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +13,7 @@ import java.util.List;
 @Setter
 public class BookUserDto {
 
-    private Integer id;
+    private Long id;
     private String name;
     private String author;
     private String description;

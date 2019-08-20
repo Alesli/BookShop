@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class UserBookDto {
 
-    private Integer id;
+    private Long id;
     private String name;
     private String pass;
     private Double cash;
@@ -30,6 +30,6 @@ public class UserBookDto {
                 ", name= " + name +
                 ", pass= " + pass +
                 ", cash= " + cash +
-                ", books= " + b.toString();
+                ", \n books: \n" + b.toString();
     }
 }

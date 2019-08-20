@@ -9,13 +9,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface BookRepository extends JpaRepository<Book, Integer> {
+public interface BookRepository extends JpaRepository<Book, Long> {
 
     Book findBookByName(String name);
 
     List<Book> findAll();
 
     @Query(value = "select distinct * from book b, shop_book sb, shop s where b.id = sb.book_id and b.id=:bookid", nativeQuery = true)
-    Book findBooksByIdFromShop(@Param("bookid") Integer bookId);
+    Book findBooksByIdFromShop(@Param("bookid") Long bookId);
 
 }

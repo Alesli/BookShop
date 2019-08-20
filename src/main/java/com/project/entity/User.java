@@ -1,18 +1,23 @@
 package com.project.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "user", schema = "public")
+@Getter
+@Setter
 public class User implements Serializable {
 
     @Id
     @Column(name = "id")
     @Access(value = AccessType.PROPERTY)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Basic
     @Column(name = "name")
@@ -33,54 +38,4 @@ public class User implements Serializable {
             foreignKey = @ForeignKey(name = "fk_user_to_book"))
     private List<Book> books;
 
-    // ---
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public Double getCash() {
-        return cash;
-    }
-
-    public void setCash(Double cash) {
-        this.cash = cash;
-    }
-
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
-//    @Override
-//    public String toString() {
-//        StringBuilder b = new StringBuilder();
-//        for (Book book : books) {
-//            b.append("\t").append(book).append("\n");
-//        }
-//        return "User" + id + name + pass + cash + b.toString();
-//    }
 }

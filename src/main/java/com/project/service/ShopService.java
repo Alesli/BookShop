@@ -8,12 +8,12 @@ public interface ShopService {
 
     long count();
 
-    Shop findOneById(Integer id);
+    Shop findOneById(Long id);
 
     Shop findOneByName(String name);
 
     List<Shop> findAll();
 
-    Shop updateCash(Integer id, Double cash);
+    Shop updateCash(Long id, Double cash);
 
 }

@@ -2,16 +2,18 @@ package com.project.service;
 
 import com.project.entity.User;
 
+import java.util.List;
+
 public interface UserService {
 
-    User findOneById(Integer id);
+    User findOneById(Long id);
 
     User findOneByName(String name);
 
-    boolean isCashEnough(Integer id, Double cash);
+    List<User> findAll();
 
-    User updateCash(Integer id, Double cash);
+    boolean isCashEnough(Long id, Double cash);
 
-    User save(User user);
+    User updateCash(Long id, Double cash);
 
 }

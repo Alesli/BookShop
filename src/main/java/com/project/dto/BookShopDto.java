@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class BookShopDto {
 
-    private Integer id;
+    private Long id;
     private String name;
     private String author;
     private String description;

@@ -1,7 +1,6 @@
 package com.project.service.impl;
 
 import com.project.entity.User;
-import com.project.repository.BookRepository;
 import com.project.repository.UserRepository;
 import com.project.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +16,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private BookRepository bookRepository;
-
     @Override
-    public User findOneById(Integer id) {
+    public User findOneById(Long id) {
         return userRepository.getOne(id);
     }
 
@@ -31,19 +27,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean isCashEnough(Integer id, Double cash) {
-        return false;
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
+    //TODO:  можно сделать вывод таблицы книг на которые пользователю хватает денег
     @Override
-    public User updateCash(Integer id, Double cash) {
+    public boolean isCashEnough(Long id, Double cash) {
         User user = userRepository.getOne(id);
-        return null;
+        Double cashUser = user.getCash();
+        return cashUser >= cash;
     }
 
     @Override
-    public User save(User user) {
+    public User updateCash(Long id, Double cash) {
+        User user = userRepository.getOne(id);
+        user.setCash(cash);
         return userRepository.save(user);
     }
-
 }

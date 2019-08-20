@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class ShopBookDto {
 
-    private Integer id;
+    private Long id;
     private String name;
     private Double cash;
     private List<BookDto> bookDtoList;
@@ -28,6 +28,6 @@ public class ShopBookDto {
         return "ShopBook " + id +
                 ", name= " + name +
                 ", cash= " + cash +
-                ", books " + b.toString();
+                ", \n books: \n" + b.toString();
     }
 }
