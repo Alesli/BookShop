@@ -24,7 +24,7 @@ public class Shop implements Serializable {
     private String name;
 
     @Basic
-    @Column(name = "cash")
+    @Column(name = "cash", columnDefinition = "NUMERIC(8,2)")
     private Double cash;
 
     @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)

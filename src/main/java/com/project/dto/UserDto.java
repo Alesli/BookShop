@@ -11,14 +11,14 @@ import lombok.Setter;
 @Setter
 public class UserDto {
 
-    private Long ig;
+    private Long id;
     private String name;
     private String pass;
     private Double cash;
 
     @Override
     public String toString() {
-        return "User " + ig +
+        return "User " + id +
                 ", name= " + name +
                 ", pass= " + pass +
                 ", cash= " + cash;

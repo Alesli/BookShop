@@ -33,7 +33,7 @@ public class Book implements Serializable {
     private String description;
 
     @Basic
-    @Column(name = "cost")
+    @Column(name = "cost", columnDefinition = "NUMERIC(8,2)")
     private Double cost;
 
     @Basic

@@ -7,8 +7,6 @@ import java.util.List;
 
 public interface ShopFacade {
 
-//    BookShopDto findBookByIdFromShop(Integer bookId);
-
     UserDto findOneUserByName(String userName);
 
     ShopDto findOneShopById(Long shopId);
@@ -17,10 +15,16 @@ public interface ShopFacade {
 
     long countShops();
 
-    List<ShopBookDto> findAllShopsBooks();
+    List<BookDto> findBooksByShopId(Long shopId);
+
+    List<BookDto> findBooksByUserId(Long userId);
+
+    Book saleBook(Long shopId, Long userId, Long bookId);
+
+    //----
 
     List<UserBookDto> findAllUsersBooks();
 
-    Book saleBook(Long shopId, Long userId, Long bookId);
+    List<ShopBookDto> findAllShopsBooks();
 
 }

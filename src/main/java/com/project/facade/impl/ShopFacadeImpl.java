@@ -66,6 +66,28 @@ public class ShopFacadeImpl implements ShopFacade {
     }
 
     @Override
+    public List<BookDto> findBooksByShopId(Long shopId) {
+        Shop shop = shopService.findOneById(shopId);
+        List<Book> bookList = shop.getBooks();
+        List<BookDto> bookDtoList = new ArrayList<>(shop.getBooks().size());
+        for (Book books : bookList) {
+            bookDtoList.add(BookConverter.getBookDTO(books));
+        }
+        return bookDtoList;
+    }
+
+    @Override
+    public List<BookDto> findBooksByUserId(Long userId) {
+        User user = userService.findOneById(userId);
+        List<Book> bookList = user.getBooks();
+        List<BookDto> bookDtoList = new ArrayList<>(user.getBooks().size());
+        for (Book books : bookList) {
+            bookDtoList.add(BookConverter.getBookDTO(books));
+        }
+        return bookDtoList;
+    }
+
+    @Override
     public List<UserBookDto> findAllUsersBooks() {
         List<User> userList = userService.findAll();
         List<UserBookDto> userBookDtoList = new ArrayList<>(userList.size());

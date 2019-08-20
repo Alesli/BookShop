@@ -14,7 +14,7 @@ public class UserConverter {
     public static UserDto getUserDto(User user) {
 
         UserDto userDto = new UserDto();
-        userDto.setIg(user.getId());
+        userDto.setId(user.getId());
         userDto.setName(user.getName());
         userDto.setPass(user.getPass());
         userDto.setCash(user.getCash());

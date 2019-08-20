@@ -1,7 +1,7 @@
 package com.project.menu;
 
+import com.project.dto.BookDto;
 import com.project.dto.ShopDto;
-import com.project.entity.Shop;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,6 +13,7 @@ public class MainMenuParts {
     String getName() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.print("Enter your name: ");
+
         try {
             return bufferedReader.readLine();
         } catch (IOException e) {
@@ -48,13 +49,36 @@ public class MainMenuParts {
         }
     }
 
+    Long showAllBooksByShop(List<BookDto> bookDtoList) {
+        return show(bookDtoList);
+    }
+
+    Long showAllUserBooks(List<BookDto> bookUserList) {
+       return show(bookUserList);
+    }
+
+    private Long show(List<BookDto> bookDtoList){
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        while (true) {
+            System.out.println("Please, choose book:");
+            for (BookDto bookDto : bookDtoList) {
+                System.out.println(bookDto.getId() + " - " + bookDto.getName());
+            }
+            System.out.print("Please, enter BOOK ID: ");
+            try {
+                return Long.parseLong(bufferedReader.readLine());
+            } catch (IOException e) {
+                System.out.println("Please, enter digit...");
+            }
+        }
+    }
     Integer getMenuItems() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.println("Please choose menu item:\n" +
                     "1 - Show all books in shop\n" +
                     "2 - Show all my books\n" +
-                    "3 - By new book\n" +
+                    "3 - Buy new book\n" +
                     "4 - Show my balance\n" +
                     "0 - exit");
             try {

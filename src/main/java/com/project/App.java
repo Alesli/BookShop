@@ -3,6 +3,8 @@ package com.project;
 import com.project.dto.BookShopDto;
 import com.project.dto.ShopBookDto;
 import com.project.facade.ShopFacade;
+import com.project.menu.MainMenu;
+import com.project.menu.MainMenuParts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -28,9 +30,11 @@ public class App implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-        List<ShopBookDto> shopBookDtoList = shopFacade.findAllShopsBooks();
-        for (ShopBookDto shops : shopBookDtoList) {
-            System.out.println(shops);
-        }
+//        List<ShopBookDto> shopBookDtoList = shopFacade.findAllShopsBooks();
+//        for (ShopBookDto shops : shopBookDtoList) {
+//            System.out.println(shops);
+//        }
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.mainMenu();
     }
 }
