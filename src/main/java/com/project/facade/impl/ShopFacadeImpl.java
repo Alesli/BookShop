@@ -74,7 +74,6 @@ public class ShopFacadeImpl implements ShopFacade {
         return bookList.isEmpty() ? new ArrayList<>(0) : bookList;
     }
 
-// todo: добавть транзакцию
     @Override
     public boolean saleBook(Long shopId, Long userId, Long bookId) {
 

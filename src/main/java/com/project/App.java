@@ -115,15 +115,10 @@ public class App implements CommandLineRunner {
                         System.out.println("Your balance: " + getUser().getCash());
                         break;
                     default:
-                         System.out.println("Please, enter digits only...");
+                        System.out.println("Please, enter digits only...");
                         break;
                 }
             }
-
-            /*
-             * выясняем количество магазинов, если один, то выкидываем главное меню
-             * если больше, то предлагаем выбрать магазин, и только затем выкидываем главное меню
-             */
         } else {
             exit();
         }

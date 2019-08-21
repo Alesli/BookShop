@@ -7,10 +7,10 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
-@Table(name = "shop")
 @Getter
 @Setter
+@Entity
+@Table(name = "shop", schema = "public")
 public class Shop implements Serializable {
 
     @Id
@@ -24,7 +24,7 @@ public class Shop implements Serializable {
     private String name;
 
     @Basic
-    @Column(name = "cash", columnDefinition = "NUMERIC(8,2)")
+    @Column(name = "cash", columnDefinition = "NUMERIC(10,2)")
     private Double cash;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

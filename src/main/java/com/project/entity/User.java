@@ -2,15 +2,17 @@ package com.project.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
-@Table(name = "user", schema = "public")
 @Getter
 @Setter
+@Entity
+@Table(name = "user", schema = "public")
 public class User implements Serializable {
 
     @Id
@@ -28,7 +30,7 @@ public class User implements Serializable {
     private String pass;
 
     @Basic
-    @Column(name = "cash")
+    @Column(name = "cash", columnDefinition = "NUMERIC(8,2)")
     private Double cash;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

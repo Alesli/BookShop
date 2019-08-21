@@ -10,8 +10,4 @@ public interface BookService {
 
     List<Book> findAll();
 
-    Book saleFromShop(Long bookId, Long shopId);
-
-    Book addToUser(Long bookId, Long userId);
-
 }

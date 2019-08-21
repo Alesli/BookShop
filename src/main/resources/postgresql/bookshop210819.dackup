@@ -5,7 +5,7 @@
 -- Dumped from database version 11.5
 -- Dumped by pg_dump version 11.3
 
--- Started on 2019-08-20 01:56:49
+-- Started on 2019-08-21 22:55:09
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -20,7 +20,7 @@ SET row_security = off;
 
 DROP DATABASE book_shop;
 --
--- TOC entry 2840 (class 1262 OID 16393)
+-- TOC entry 2844 (class 1262 OID 16393)
 -- Name: book_shop; Type: DATABASE; Schema: -; Owner: postgres
 --
 
@@ -52,11 +52,12 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE public.book (
-  id integer NOT NULL,
-  name character varying(50) NOT NULL,
-  author character varying(50) NOT NULL,
-  description character varying(250),
-  cost numeric(8,2) NOT NULL
+    id bigint NOT NULL,
+    name character varying(50) NOT NULL,
+    author character varying(50) NOT NULL,
+    description character varying(250),
+    cost numeric(8,2) NOT NULL,
+    count integer
 );
 
 
@@ -68,9 +69,9 @@ ALTER TABLE public.book OWNER TO postgres;
 --
 
 CREATE TABLE public.shop (
-  id bigint NOT NULL,
-  name character varying(50) NOT NULL,
-  cash numeric(10,2)
+    id bigint NOT NULL,
+    name character varying(50) NOT NULL,
+    cash numeric(10,2)
 );
 
 
@@ -82,8 +83,8 @@ ALTER TABLE public.shop OWNER TO postgres;
 --
 
 CREATE TABLE public.shop_book (
-  shop_id bigint NOT NULL,
-  book_id bigint NOT NULL
+    shop_id bigint NOT NULL,
+    book_id bigint NOT NULL
 );
 
 
@@ -95,10 +96,10 @@ ALTER TABLE public.shop_book OWNER TO postgres;
 --
 
 CREATE TABLE public."user" (
-  id bigint NOT NULL,
-  pass character varying(50) NOT NULL,
-  name character varying(50) NOT NULL,
-  cash numeric(8,2)
+    id bigint NOT NULL,
+    pass character varying(50) NOT NULL,
+    name character varying(50) NOT NULL,
+    cash numeric(8,2)
 );
 
 
@@ -110,29 +111,29 @@ ALTER TABLE public."user" OWNER TO postgres;
 --
 
 CREATE TABLE public.user_book (
-  user_id bigint NOT NULL,
-  book_id bigint NOT NULL
+    user_id bigint NOT NULL,
+    book_id bigint NOT NULL
 );
 
 
 ALTER TABLE public.user_book OWNER TO postgres;
 
 --
--- TOC entry 2830 (class 0 OID 16397)
+-- TOC entry 2834 (class 0 OID 16397)
 -- Dependencies: 196
 -- Data for Name: book; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.book (id, name, author, description, cost) VALUES (1, 'Pet Sematary', 'Stephen King', 'Louis Creed, a doctor from Chicago, moves to a large house near the small town of Ludlow with his wife Rachel, their two young children...', 12.00);
-INSERT INTO public.book (id, name, author, description, cost) VALUES (2, 'The Dark Tower: The Gunslinger', 'Stephen King', 'The gunslinger comes across a hut in the desert owned by a farmer named Brown, who has a pet raven named Zoltan...', 24.00);
-INSERT INTO public.book (id, name, author, description, cost) VALUES (3, 'Needful Things', 'Stephen King', 'A new shop named "Needful Things" opens in the town of Castle Rock, Maine, sparking the curiosity of its citizens...', 11.00);
-INSERT INTO public.book (id, name, author, description, cost) VALUES (4, 'A Game of Thrones', 'George R. R. Martin', 'A Game of Thrones is the first novel in A Song of Ice and Fire, a series of fantasy novels by the American author...', 46.00);
-INSERT INTO public.book (id, name, author, description, cost) VALUES (5, 'Spectrum', 'Sergey Lukyanenko', 'A novel telling about the real world in which humanity has the opportunity to travel between worlds using portals.', 12.00);
-INSERT INTO public.book (id, name, author, description, cost) VALUES (6, 'Spectrum', 'Dan Simmons', 'The first book of the tetralogy "Songs of Hyperion.', 15.00);
+INSERT INTO public.book (id, name, author, description, cost, count) VALUES (2, 'The Dark Tower: The Gunslinger', 'Stephen King', 'The gunslinger comes across a hut in the desert owned by a farmer named Brown...', 24.00, 6);
+INSERT INTO public.book (id, name, author, description, cost, count) VALUES (3, 'Needful Things', 'Stephen King', 'A new shop named "Needful Things" opens in the town of Castle Rock, sparking the curiosity of its citizens...', 11.00, 7);
+INSERT INTO public.book (id, name, author, description, cost, count) VALUES (5, 'Spectrum', 'Sergey Lukyanenko', 'A novel telling about the real world in which humanity has the opportunity to travel between worlds using portals.', 12.00, 9);
+INSERT INTO public.book (id, name, author, description, cost, count) VALUES (6, 'Hyperion', 'Dan Simmons', 'The first book of the tetralogy "Songs of Hyperion.', 15.00, 9);
+INSERT INTO public.book (id, name, author, description, cost, count) VALUES (1, 'Pet Sematary', 'Stephen King', 'Louis Creed, a doctor from Chicago, moves to a large house near the small town of Ludlow with his family...', 12.00, 13);
+INSERT INTO public.book (id, name, author, description, cost, count) VALUES (4, 'A Game of Thrones', 'George R. R. Martin', 'A Game of Thrones is the first novel in A Song of Ice and Fire...', 46.00, 9);
 
 
 --
--- TOC entry 2831 (class 0 OID 16412)
+-- TOC entry 2835 (class 0 OID 16412)
 -- Dependencies: 197
 -- Data for Name: shop; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -143,33 +144,21 @@ INSERT INTO public.shop (id, name, cash) VALUES (3, 'Belkniga', 120.00);
 
 
 --
--- TOC entry 2834 (class 0 OID 16445)
+-- TOC entry 2838 (class 0 OID 16445)
 -- Dependencies: 200
 -- Data for Name: shop_book; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 INSERT INTO public.shop_book (shop_id, book_id) VALUES (1, 1);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (1, 1);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (1, 1);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (1, 2);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (1, 2);
 INSERT INTO public.shop_book (shop_id, book_id) VALUES (1, 2);
 INSERT INTO public.shop_book (shop_id, book_id) VALUES (2, 3);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (2, 3);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (2, 3);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (2, 4);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (2, 4);
 INSERT INTO public.shop_book (shop_id, book_id) VALUES (2, 4);
 INSERT INTO public.shop_book (shop_id, book_id) VALUES (3, 5);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (3, 5);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (3, 5);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (3, 6);
-INSERT INTO public.shop_book (shop_id, book_id) VALUES (3, 6);
 INSERT INTO public.shop_book (shop_id, book_id) VALUES (3, 6);
 
 
 --
--- TOC entry 2832 (class 0 OID 16420)
+-- TOC entry 2836 (class 0 OID 16420)
 -- Dependencies: 198
 -- Data for Name: user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -182,7 +171,7 @@ INSERT INTO public."user" (id, pass, name, cash) VALUES (5, 'michael123', 'Micha
 
 
 --
--- TOC entry 2833 (class 0 OID 16440)
+-- TOC entry 2837 (class 0 OID 16440)
 -- Dependencies: 199
 -- Data for Name: user_book; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -190,12 +179,12 @@ INSERT INTO public."user" (id, pass, name, cash) VALUES (5, 'michael123', 'Micha
 
 
 --
--- TOC entry 2700 (class 2606 OID 16404)
+-- TOC entry 2700 (class 2606 OID 16518)
 -- Name: book book_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.book
-ADD CONSTRAINT book_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT book_pkey PRIMARY KEY (id);
 
 
 --
@@ -204,7 +193,7 @@ ADD CONSTRAINT book_pkey PRIMARY KEY (id);
 --
 
 ALTER TABLE ONLY public.shop
-ADD CONSTRAINT shop_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT shop_pkey PRIMARY KEY (id);
 
 
 --
@@ -213,7 +202,7 @@ ADD CONSTRAINT shop_pkey PRIMARY KEY (id);
 --
 
 ALTER TABLE ONLY public."user"
-ADD CONSTRAINT user_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT user_pkey PRIMARY KEY (id);
 
 
 --
@@ -248,7 +237,43 @@ CREATE INDEX fk_shop_to_book ON public.shop_book USING btree (shop_id NULLS FIRS
 CREATE INDEX fk_user_to_book ON public.user_book USING btree (user_id NULLS FIRST) INCLUDE (user_id);
 
 
--- Completed on 2019-08-20 01:56:50
+--
+-- TOC entry 2712 (class 2606 OID 16524)
+-- Name: shop_book fk_book_to_shop; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.shop_book
+    ADD CONSTRAINT fk_book_to_shop FOREIGN KEY (book_id) REFERENCES public.book(id);
+
+
+--
+-- TOC entry 2710 (class 2606 OID 16519)
+-- Name: user_book fk_book_to_user; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_book
+    ADD CONSTRAINT fk_book_to_user FOREIGN KEY (book_id) REFERENCES public.book(id);
+
+
+--
+-- TOC entry 2711 (class 2606 OID 16502)
+-- Name: shop_book fk_shop_to_book; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.shop_book
+    ADD CONSTRAINT fk_shop_to_book FOREIGN KEY (shop_id) REFERENCES public.shop(id);
+
+
+--
+-- TOC entry 2709 (class 2606 OID 16507)
+-- Name: user_book fk_user_to_book; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.user_book
+    ADD CONSTRAINT fk_user_to_book FOREIGN KEY (user_id) REFERENCES public."user"(id);
+
+
+-- Completed on 2019-08-21 22:55:10
 
 --
 -- PostgreSQL database dump complete

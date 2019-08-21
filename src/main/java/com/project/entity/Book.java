@@ -8,10 +8,10 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
-@Entity
-@Table(name = "book")
 @Getter
 @Setter
+@Entity
+@Table(name = "book", schema = "public")
 public class Book implements Serializable {
 
     @Id
@@ -40,18 +40,26 @@ public class Book implements Serializable {
     @Column(name = "count")
     private Integer count;
 
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
-    @JoinTable(name = "user_book",
-            joinColumns = @JoinColumn(name = "book_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"),
-            foreignKey = @ForeignKey(name = "fk_book_to_user"))
-    private List<User> users;
-
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
     @JoinTable(name = "shop_book",
             joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "shop_id"),
             foreignKey = @ForeignKey(name = "fk_book_to_shop"))
     private List<Shop> shops;
+
+    @ManyToMany(cascade = {
+            CascadeType.MERGE,
+            CascadeType.PERSIST,
+            CascadeType.REFRESH},
+            fetch = FetchType.LAZY)
+    @JoinTable(name = "user_book",
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"),
+            foreignKey = @ForeignKey(name = "fk_book_to_user"))
+    private List<User> users;
 
 }

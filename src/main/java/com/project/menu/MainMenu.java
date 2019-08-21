@@ -93,23 +93,6 @@ public class MainMenu {
         }
     }
 
-//    public Long showAllShopBooks(List<Book> bookList) {
-//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-//        while (true) {
-//            System.out.println("----------------------------------------------------------------\n" +
-//                    "Please, choose book:");
-//            for (Book book : bookList) {
-//                System.out.println(book.getId() + " - " + book.getName() + ", " + book.getCost() + "$, " + book.getDescription());
-//            }
-//            System.out.println("Please, enter BOOK ID: ");
-//            try {
-//                return Long.parseLong(bufferedReader.readLine());
-//            } catch (IOException e) {
-//                System.out.println("Please, enter digits only...");
-//            }
-//        }
-//    }
-
     public Long chooseBook() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         System.out.println("----------------------------------------------------------------\n" +

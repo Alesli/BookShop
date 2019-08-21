@@ -25,17 +25,4 @@ public class BookServiceImpl implements BookService {
     public List<Book> findAll() {
         return bookRepository.findAll();
     }
-
-    @Override
-    public Book saleFromShop(Long bookId, Long shopId) {
-        Book book = bookRepository.getOne(bookId);
-
-        return null;
-    }
-
-    @Override
-    public Book addToUser(Long bookId, Long userId) {
-        Book book = bookRepository.getOne(bookId);
-        return null;
-    }
 }
