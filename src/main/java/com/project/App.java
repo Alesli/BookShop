@@ -24,7 +24,6 @@ public class App implements CommandLineRunner {
 
     private Shop shop;
     private User user;
-    private Book book;
     private boolean signIn = false;
 
     public static void main(String[] args) {
@@ -57,12 +56,12 @@ public class App implements CommandLineRunner {
         }
 
         for (int p = 0; p < 3; p++) {
-            String pass = mainMenu.checkPassword(user.getName());
+            String pass = mainMenu.checkPassword(getUser().getName());
             if (pass.length() == 0) {
                 exit();
             } else {
-                if (user.getPass().equals(pass)) {
-                    signIn = true;
+                if (getUser().getPass().equals(pass)) {
+                    setSignIn(true);
                     break;
                 } else {
                     System.out.println((p + 1) + " - Sorry, your pass is not correct");
@@ -70,7 +69,7 @@ public class App implements CommandLineRunner {
             }
         }
 
-        if (signIn) {
+        if (isSignIn()) {
 
             List<Shop> shopList = shopFacade.findAllShops();
             if (shopList.isEmpty()) {
@@ -84,7 +83,7 @@ public class App implements CommandLineRunner {
             } else {
                 setShop(shopList.get(0));
             }
-            // todo: попробовать в обернуть в цикл, чтобы юзер мог постоянно книги покупать
+            // todo: попробовать обернуть в цикл, чтобы юзер мог постоянно книги покупать
 
             while (true) {
                 int menuItem = mainMenu.getMenuItems();
@@ -94,34 +93,29 @@ public class App implements CommandLineRunner {
                         break;
                     case 1:
                         List<Book> bookShopList = shopFacade.findAllShopsBooks(getShop().getId());
-                        Long bookId = mainMenu.showAllShopBooks(bookShopList);
-                        Book book = shopFacade.findOneBookById(bookId);
-                        setBook(book);
+                        mainMenu.showAllShopBooks(bookShopList);
+                        if (mainMenu.doYouWannaBuy()) {
+                            mainMenu.showAllShopBooks(bookShopList);
+                            Long bookId = mainMenu.chooseBook();
+                            Book book = shopFacade.findOneBookById(bookId);
+                            if (book != null) {
+                                shopFacade.saleBook(getShop().getId(), getUser().getId(), book.getId());
+                                List<Book> basket = shopFacade.findAllUsersBooks(getUser().getId());
+                                mainMenu.showAllUserBooks(basket);
+                            }
+                        }
                         break;
                     case 2:
-                        List<Book> bookUserList = shopFacade.findAllUsersBooks(user.getId());
+                        List<Book> bookUserList = shopFacade.findAllUsersBooks(getUser().getId());
                         mainMenu.showAllUserBooks(bookUserList);
                         break;
                     case 3:
-
-                        // это только пример, надо получить id книги из пункта 1, иначе, просто вызвать его
-
-                        shopFacade.saleBook(1L, 1L, 1L);
-                        List<Book> basket = shopFacade.findAllUsersBooks(user.getId());
-                        mainMenu.showAllUserBooks(basket);
-
-                        // вот тут есть робкая попытка уточнить, выбрана ли книга
-//                         if (getBook() != null) {
-//                             shopFacade.saleBook(getShop().getId(), getUser().getId(), getBook().getId());
-//                         }
-                        break;
-                    case 4:
                         User user = shopFacade.findOneUserById(getUser().getId());
                         setUser(user);
                         System.out.println("Your balance: " + getUser().getCash());
                         break;
                     default:
-//                         System.out.println("Please, enter digits only...");
+                         System.out.println("Please, enter digits only...");
                         break;
                 }
             }
@@ -156,11 +150,11 @@ public class App implements CommandLineRunner {
         this.user = user;
     }
 
-    public Book getBook() {
-        return book;
+    private boolean isSignIn() {
+        return signIn;
     }
 
-    public void setBook(Book book) {
-        this.book = book;
+    private void setSignIn(boolean signIn) {
+        this.signIn = signIn;
     }
 }

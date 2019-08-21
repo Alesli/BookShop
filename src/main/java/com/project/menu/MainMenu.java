@@ -58,8 +58,7 @@ public class MainMenu {
                 "Please choose menu item:\n" +
                 "1 - Show all books in shop\n" +
                 "2 - Show all my books\n" +
-                "3 - By new book\n" +
-                "4 - Show my balance\n" +
+                "3 - Show my balance\n" +
                 "0 - exit");
         try {
             // todo: обработать ошибку ввода не чисел
@@ -71,19 +70,60 @@ public class MainMenu {
         return 0;
     }
 
-    public Long showAllShopBooks(List<Book> bookList) {
+    public boolean doYouWannaBuy() {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        while (true) {
-            System.out.println("----------------------------------------------------------------\n" +
-                    "Please, choose book:");
-            for (Book book : bookList) {
-                System.out.println(book.getId() + " - " + book.getName() + ", " + book.getCost() + "$, " + book.getDescription());
+        System.out.println("----------------------------------------------------------------\n" +
+                "Do you wanna buy a book? (y/n):");
+        try {
+            String choose = bufferedReader.readLine();
+            if (choose.equalsIgnoreCase("y")) {
+                return true;
             }
-            System.out.println("Please, enter BOOK ID: ");
+        } catch (IOException e) {
+            return false;
+        }
+        return false;
+    }
+
+    public void showAllShopBooks(List<Book> bookList) {
+        System.out.println("----------------------------------------------------------------\n" +
+                "All books from Shop:");
+        for (Book book : bookList) {
+            System.out.println(book.getId() + " - " + book.getName() + ", " + book.getCost() + "$, " + book.getDescription());
+        }
+    }
+
+//    public Long showAllShopBooks(List<Book> bookList) {
+//        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+//        while (true) {
+//            System.out.println("----------------------------------------------------------------\n" +
+//                    "Please, choose book:");
+//            for (Book book : bookList) {
+//                System.out.println(book.getId() + " - " + book.getName() + ", " + book.getCost() + "$, " + book.getDescription());
+//            }
+//            System.out.println("Please, enter BOOK ID: ");
+//            try {
+//                return Long.parseLong(bufferedReader.readLine());
+//            } catch (IOException e) {
+//                System.out.println("Please, enter digits only...");
+//            }
+//        }
+//    }
+
+    public Long chooseBook() {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("----------------------------------------------------------------\n" +
+                "Please, enter book's ID:");
+        while (true) {
             try {
-                return Long.parseLong(bufferedReader.readLine());
+                String bookIsStr = bufferedReader.readLine();
+                try {
+                    return Long.parseLong(bookIsStr);
+                } catch (Exception e) {
+                    System.out.println("Please, enter digits only...");
+                }
             } catch (IOException e) {
-                System.out.println("Please, enter digits only...");
+                //
             }
         }
     }
