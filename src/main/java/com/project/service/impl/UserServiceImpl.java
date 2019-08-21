@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @Transactional
@@ -26,23 +25,27 @@ public class UserServiceImpl implements UserService {
         return userRepository.findOneByName(name);
     }
 
-    @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
-    //TODO:  можно сделать вывод таблицы книг на которые пользователю хватает денег
+    //TODO:  можно сделать вывод таблицы книг, на которые пользователю хватает денег
     @Override
     public boolean isCashEnough(Long id, Double cash) {
-        User user = userRepository.getOne(id);
-        Double cashUser = user.getCash();
-        return cashUser >= cash;
+        User user = findOneById(id);
+        return user.getCash() - cash >= 0;
     }
 
     @Override
     public User updateCash(Long id, Double cash) {
-        User user = userRepository.getOne(id);
-        user.setCash(cash);
+        if (isCashEnough(id, cash)) {
+            User user = findOneById(id);
+            user.setCash(user.getCash() - cash);
+            return save(user);
+        } else {
+            // todo: подумать
+            return null;
+        }
+    }
+
+    @Override
+    public User save(User user) {
         return userRepository.save(user);
     }
 }

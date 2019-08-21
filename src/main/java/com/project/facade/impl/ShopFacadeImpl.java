@@ -1,9 +1,5 @@
 package com.project.facade.impl;
 
-import com.project.converter.BookConverter;
-import com.project.converter.ShopConverter;
-import com.project.converter.UserConverter;
-import com.project.dto.*;
 import com.project.entity.Book;
 import com.project.entity.Shop;
 import com.project.entity.User;
@@ -30,75 +26,145 @@ public class ShopFacadeImpl implements ShopFacade {
     private UserService userService;
 
     @Override
-    public UserDto findOneUserByName(String userName) {
-        return UserConverter.getUserDto(
-                userService.findOneByName(userName));
+    public User findOneUserById(Long userId) {
+        return userService.findOneById(userId);
     }
 
     @Override
-    public ShopDto findOneShopById(Long shopId) {
-        return ShopConverter.getShopDto(shopService.findOneById(shopId));
+    public User findOneUserByName(String userName) {
+        return userService.findOneByName(userName);
     }
 
     @Override
-    public List<ShopDto> findAllShops() {
-        List<Shop> shopList = shopService.findAll();
-        List<ShopDto> shopDtoList = new ArrayList<>(shopList.size());
-        for (Shop shops : shopList) {
-            shopDtoList.add(ShopConverter.getShopDto(shops));
-        }
-        return shopDtoList;
+    public Shop findOneShopById(Long shopId) {
+        return shopService.findOneById(shopId);
     }
 
     @Override
-    public long countShops() {
-        return shopService.count();
+    public Book findOneBookById(Long bookId) {
+        return bookService.findOneById(bookId);
     }
 
     @Override
-    public List<ShopBookDto> findAllShopsBooks() {
-        List<Shop> shopList = shopService.findAll();
-        List<ShopBookDto> shopBookDtoList = new ArrayList<>(shopList.size());
-        for (Shop shops : shopList) {
-            shopBookDtoList.add(ShopConverter.getShopBookDto(shops));
-        }
-        return shopBookDtoList;
+    public User saveUser(User user) {
+        return userService.save(user);
     }
 
     @Override
-    public List<BookDto> findBooksByShopId(Long shopId) {
+    public Shop saveShop(Shop shop) {
+        return shopService.save(shop);
+    }
+
+    @Override
+    public List<Shop> findAllShops() {
+        return shopService.findAll();
+    }
+
+    @Override
+    public List<Book> findAllShopsBooks(Long shopId) {
         Shop shop = shopService.findOneById(shopId);
         List<Book> bookList = shop.getBooks();
-        List<BookDto> bookDtoList = new ArrayList<>(shop.getBooks().size());
-        for (Book books : bookList) {
-            bookDtoList.add(BookConverter.getBookDTO(books));
-        }
-        return bookDtoList;
+        return bookList.isEmpty() ? new ArrayList<>(0) : bookList;
     }
 
     @Override
-    public List<BookDto> findBooksByUserId(Long userId) {
+    public List<Book> findAllUsersBooks(Long userId) {
         User user = userService.findOneById(userId);
         List<Book> bookList = user.getBooks();
-        List<BookDto> bookDtoList = new ArrayList<>(user.getBooks().size());
-        for (Book books : bookList) {
-            bookDtoList.add(BookConverter.getBookDTO(books));
-        }
-        return bookDtoList;
+        return bookList.isEmpty() ? new ArrayList<>(0) : bookList;
     }
 
+// todo: добавть транзакцию
     @Override
-    public List<UserBookDto> findAllUsersBooks() {
-        List<User> userList = userService.findAll();
-        List<UserBookDto> userBookDtoList = new ArrayList<>(userList.size());
-        for (User users : userList) {
-            userBookDtoList.add(UserConverter.getUserBookDto(users));
+    public boolean saleBook(Long shopId, Long userId, Long bookId) {
+
+        User user = userService.findOneById(userId);
+        Book book = bookService.findOneById(bookId);
+        if ((user.getCash() - book.getCost()) >= 0) {
+
+            moneyFromUser(userId, book.getCost());
+            moneyToShop(shopId, book.getCost());
+            bookFromShop(shopId, bookId);
+            bookToUser(userId, bookId);
+        } else {
+            System.out.println("unfortunately, you don't have enough money");
         }
-        return userBookDtoList;
+        return true;
     }
 
-    @Override
-    public Book saleBook(Long shopId, Long userId, Long bookId) {
-        return null;
+    private Double moneyFromUser(Long userId, Double money) {
+        User user = userService.findOneById(userId);
+        user.setCash(getDouble(user.getCash(), money, false));
+        return saveUser(user).getCash();
+    }
+
+    private Double moneyToShop(Long shopId, Double money) {
+        Shop shop = shopService.findOneById(shopId);
+        shop.setCash(getDouble(shop.getCash(), money, true));
+        return saveShop(shop).getCash();
+    }
+
+    private Double getDouble(Double param1, Double param2, boolean isPlus) {
+        String p1Str = String.valueOf(param1);
+        String p2Str = String.valueOf(param2);
+        if (p1Str.substring(p1Str.lastIndexOf(".") + 1).length() == 1) {
+            p1Str += "0";
+        }
+        if (p2Str.substring(p2Str.lastIndexOf(".") + 1).length() == 1) {
+            p2Str += "0";
+        }
+        p1Str = p1Str.replace(".", "");
+        p2Str = p2Str.replace(".", "");
+        System.out.println(p1Str);
+        System.out.println(p2Str);
+        int p1Int = Integer.parseInt(p1Str);
+        int p2Int = Integer.parseInt(p2Str);
+        p1Int = isPlus ? p1Int + p2Int : p1Int - p2Int;
+        return (double) p1Int / 100;
+    }
+
+    private boolean bookFromShop(Long shopId, Long bookId) {
+        Shop shop = shopService.findOneById(shopId);
+        Book book = bookService.findOneById(bookId);
+        List<Book> bookShopList = shop.getBooks();
+        int size = bookShopList.size();
+        Book bookInShop = null;
+        for (int b = 0; b < bookShopList.size(); b++) {
+            if (bookShopList.get(b).getId().equals(book.getId())) {
+                bookInShop = bookShopList.get(b);
+                break;
+            }
+        }
+        if (bookInShop.getCount() == 1) {
+            for (int b = 0; b < bookShopList.size(); b++) {
+                if (bookShopList.get(b).getId().equals(bookInShop.getId())) {
+                    bookShopList.remove(b);
+                    break;
+                }
+            }
+        } else if (bookInShop.getCount() > 1) {
+            for (int b = 0; b < bookShopList.size(); b++) {
+                if (bookShopList.get(b).getId().equals(bookInShop.getId())) {
+                    bookShopList.remove(b);
+                    break;
+                }
+            }
+            bookInShop.setCount(bookInShop.getCount() - 1);
+            bookShopList.add(bookInShop);
+        }
+        shop.setBooks(bookShopList);
+        Shop shopSaved = saveShop(shop);
+        return ((size - 1) - shopSaved.getBooks().size()) == 0;
+    }
+
+    private boolean bookToUser(Long userId, Long bookId) {
+        User user = userService.findOneById(userId);
+        Book book = bookService.findOneById(bookId);
+        List<Book> bookUserList = user.getBooks();
+        int size = bookUserList.size();
+        bookUserList.add(book);
+        user.setBooks(bookUserList);
+        User userSaved = saveUser(user);
+        return ((size + 1) - userSaved.getBooks().size()) == 0;
     }
 }

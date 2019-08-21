@@ -17,18 +17,8 @@ public class ShopServiceImpl implements ShopService {
     private ShopRepository shopRepository;
 
     @Override
-    public long count() {
-        return shopRepository.count();
-    }
-
-    @Override
     public Shop findOneById(Long id) {
         return shopRepository.getOne(id);
-    }
-
-    @Override
-    public Shop findOneByName(String name) {
-        return shopRepository.findOneByName(name);
     }
 
     @Override
@@ -38,8 +28,13 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Shop updateCash(Long id, Double cash) {
-        Shop shop = shopRepository.getOne(id);
-        shop.setCash(cash);
+        Shop shop = findOneById(id);
+        shop.setCash(shop.getCash() + cash);
+        return save(shop);
+    }
+
+    @Override
+    public Shop save(Shop shop) {
         return shopRepository.save(shop);
     }
 }

@@ -27,7 +27,7 @@ public class Shop implements Serializable {
     @Column(name = "cash", columnDefinition = "NUMERIC(8,2)")
     private Double cash;
 
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "shop_book",
             joinColumns = @JoinColumn(name = "shop_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"),

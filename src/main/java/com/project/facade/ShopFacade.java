@@ -1,30 +1,30 @@
 package com.project.facade;
 
-import com.project.dto.*;
 import com.project.entity.Book;
+import com.project.entity.Shop;
+import com.project.entity.User;
 
 import java.util.List;
 
 public interface ShopFacade {
 
-    UserDto findOneUserByName(String userName);
+    User findOneUserById(Long userId);
 
-    ShopDto findOneShopById(Long shopId);
+    User findOneUserByName(String userName);
 
-    List<ShopDto> findAllShops();
+    Shop findOneShopById(Long shopId);
 
-    long countShops();
+    Book findOneBookById(Long bookId);
 
-    List<BookDto> findBooksByShopId(Long shopId);
+    User saveUser(User user);
 
-    List<BookDto> findBooksByUserId(Long userId);
+    Shop saveShop(Shop shop);
 
-    Book saleBook(Long shopId, Long userId, Long bookId);
+    List<Shop> findAllShops();
 
-    //----
+    List<Book> findAllShopsBooks(Long shopId);
 
-    List<UserBookDto> findAllUsersBooks();
+    List<Book> findAllUsersBooks(Long userId);
 
-    List<ShopBookDto> findAllShopsBooks();
-
+    boolean saleBook(Long shopId, Long userId, Long bookId);
 }

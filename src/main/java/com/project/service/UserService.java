@@ -10,10 +10,10 @@ public interface UserService {
 
     User findOneByName(String name);
 
-    List<User> findAll();
-
     boolean isCashEnough(Long id, Double cash);
 
     User updateCash(Long id, Double cash);
+
+    User save(User user);
 
 }
