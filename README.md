@@ -3,7 +3,7 @@
 **Objective**: Implement the functionality of buying a book in a store.
 
 The application displays the result of the queries in the console. 
-**Technologies used:** Hibernate, SpringBoot PostgreSQL 9.4, Lombok. 
+**Technologies used:** Hibernate, SpringBoot, PostgreSQL 9.4, Lombok. 
 
 1)	 Mandatory tables: 
 - ***Book*** (id, name, author, description), 
